@@ -18,3 +18,5 @@ export const NULL_COLLECTION_NAME_ERROR =
   "Name identifier cannot be null for collection in request";
 export const MULTIPLE_COLLECTION_IDENTIFIER_ERROR =
   "Request has too many identifiers. Either pass in collection_id or collection_name, not both";
+  export const WRITER_URL = "https://writer.starpoint.ai";
+  export const READER_URL = "https://reader.starpoint.ai";

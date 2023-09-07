@@ -73,11 +73,15 @@ export const initOpenAI = (openaiKey: string) => {
             ? document_metadata
             : backfillDocumentMetadata(input_data);
 
-        const starpointResponse = await columnInsert({
+        const columnInsertRequest: TransposeAndInsertRequest = {
           embeddings,
           document_metadata: requestedDocumentMetadata,
           ...rest,
-        });
+        }
+
+        const starpointResponse = await columnInsert(columnInsertRequest);
+        console.log("openai response", embeddingResponse)
+        console.log("starpointResponse", starpointResponse)
 
         return {
           data: {

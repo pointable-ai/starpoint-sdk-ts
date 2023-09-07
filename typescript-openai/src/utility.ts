@@ -1,6 +1,6 @@
 import { CreateEmbeddingRequestInput } from "openai";
 import { APIResult } from "starpoint";
-import axios from "axios";
+import ky from "ky-universal"
 
 export const backfillDocumentMetadata = (
   inputData: CreateEmbeddingRequestInput
@@ -16,11 +16,11 @@ export const backfillDocumentMetadata = (
   }
 };
 
-export const handleError = (err: any): APIResult<null> => {
-  if (axios.isAxiosError(err)) {
+export const handleError = async (err: any): Promise<APIResult<null>> => {
+  if (err.name === "HTTPError") {
     return {
       data: null,
-      error: err?.response?.data,
+      error: await err.response.json(),
     };
   }
   return {
@@ -28,3 +28,4 @@ export const handleError = (err: any): APIResult<null> => {
     error: { error_message: err.message },
   };
 };
+
