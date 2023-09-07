@@ -80,8 +80,6 @@ export const initOpenAI = (openaiKey: string) => {
         }
 
         const starpointResponse = await columnInsert(columnInsertRequest);
-        console.log("openai response", embeddingResponse)
-        console.log("starpointResponse", starpointResponse)
 
         return {
           data: {
