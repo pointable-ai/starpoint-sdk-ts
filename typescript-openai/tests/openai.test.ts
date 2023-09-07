@@ -8,75 +8,76 @@ import { BuildAndInsertEmbeddingsFromOpenAIRequest } from "../src/types";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 
 // Mock ky-universal
+vi.mock("ky-universal");
+
+// Mock OpenAI
+vi.mock("openai");
+const createEmbeddingSpy = vi.spyOn(OpenAIApi.prototype, "createEmbedding");
+const starpointDbClientSpy = vi.spyOn(db, "initialize");
+vi.mock("starpoint", () => {
+  return {
+    db: {
+      initialize: (
+        apiKey: string,
+        options?: {
+          writerHostURL?: string;
+          readerHostURL?: string;
+          embeddingHostURL?: string;
+          openaiKey?: string;
+        }
+      ) => {
+        return {
+          columnInsert: vi.fn(),
+        };
+      },
+    },
+  };
+});
+const starpointOpenAiClientSpy = vi.spyOn(starpointOpenai, "initialize");
+
+beforeAll(() => {
+  vi.mocked(ky.create).mockReturnThis();
+  vi.mocked(ky.extend).mockReturnThis();
+});
+
+afterEach(() => {
+  vi.mocked(
+    ky.extend({
+      prefixUrl: WRITER_URL,
+    }).delete
+  ).mockClear();
+  vi.mocked(
+    ky.extend({
+      prefixUrl: WRITER_URL,
+    }).patch
+  ).mockClear();
+  vi.mocked(
+    ky.extend({
+      prefixUrl: WRITER_URL,
+    }).post
+  ).mockClear();
+  starpointDbClientSpy.mockClear();
+  starpointOpenAiClientSpy.mockClear();
+  createEmbeddingSpy.mockClear();
+});
+
+describe("starpointOpenAi.initialize", () => {
+  it("should correctly set openAIKey and starpointAi and default urls", () => {
+    const MOCK_OPENAI_KEY = uuid4();
+    const MOCK_API_KEY = uuid4();
+    const dbClient = db.initialize(MOCK_API_KEY);
+    expect(starpointDbClientSpy).toHaveBeenCalled();
+    expect(starpointDbClientSpy).toHaveBeenCalledWith(MOCK_API_KEY);
+    starpointOpenai.initialize(MOCK_OPENAI_KEY, dbClient);
+    expect(starpointOpenAiClientSpy).toHaveBeenCalled();
+    expect(starpointOpenAiClientSpy).toHaveBeenCalledWith(
+      MOCK_OPENAI_KEY,
+      dbClient
+    );
+  });
+});
+
 // TODO: fix this later
-// vi.mock("ky-universal");
-
-// // Mock OpenAI
-// vi.mock("openai");
-// const createEmbeddingSpy = vi.spyOn(OpenAIApi.prototype, "createEmbedding");
-// const starpointDbClientSpy = vi.spyOn(db, "initialize");
-// vi.mock("starpoint", () => {
-//   return {
-//     db: {
-//       initialize: (
-//         apiKey: string,
-//         options?: {
-//           writerHostURL?: string;
-//           readerHostURL?: string;
-//           embeddingHostURL?: string;
-//           openaiKey?: string;
-//         }
-//       ) => {
-//         return {
-//           columnInsert: vi.fn(),
-//         };
-//       },
-//     },
-//   };
-// });
-// const starpointOpenAiClientSpy = vi.spyOn(starpointOpenai, "initialize");
-
-// beforeAll(() => {
-//   vi.mocked(ky.create).mockReturnThis();
-//   vi.mocked(ky.extend).mockReturnThis();
-// });
-
-// afterEach(() => {
-//   vi.mocked(
-//     ky.extend({
-//       prefixUrl: WRITER_URL,
-//     }).delete
-//   ).mockClear();
-//   vi.mocked(
-//     ky.extend({
-//       prefixUrl: WRITER_URL,
-//     }).patch
-//   ).mockClear();
-//   vi.mocked(
-//     ky.extend({
-//       prefixUrl: WRITER_URL,
-//     }).post
-//   ).mockClear();
-//   starpointDbClientSpy.mockClear();
-//   starpointOpenAiClientSpy.mockClear();
-//   createEmbeddingSpy.mockClear();
-// });
-
-// describe("starpointOpenAi.initialize", () => {
-//   it("should correctly set openAIKey and starpointAi and default urls", () => {
-//     const MOCK_OPENAI_KEY = uuid4();
-//     const MOCK_API_KEY = uuid4();
-//     const dbClient = db.initialize(MOCK_API_KEY);
-//     expect(starpointDbClientSpy).toHaveBeenCalled();
-//     expect(starpointDbClientSpy).toHaveBeenCalledWith(MOCK_API_KEY);
-//     starpointOpenai.initialize(MOCK_OPENAI_KEY, dbClient);
-//     expect(starpointOpenAiClientSpy).toHaveBeenCalled();
-//     expect(starpointOpenAiClientSpy).toHaveBeenCalledWith(
-//       MOCK_OPENAI_KEY,
-//       dbClient
-//     );
-//   });
-// });
 
 // describe("buildAndInsertEmbeddings", () => {
 //   it("should return an openai response, but not a starpoint response", async () => {
