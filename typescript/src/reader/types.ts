@@ -5,6 +5,7 @@ export interface QueryDocuments {
   query_embedding?: Option<number[]>;
   sql?: Option<string>;
   params?: Option<Array<string | number>>;
+  text_search_query?: Option<string>;
 }
 
 export type QueryRequest = ByWrapper<QueryDocuments>;
@@ -15,7 +16,8 @@ export interface QueryResponse {
   sql?: Option<string>;
   results: {
     __id: string;
-    __distance: number;
+    __distance?: Option<number>;
+    __score?: Option<number>;
     [key: string]: string | number | undefined | null;
   }[];
 }
