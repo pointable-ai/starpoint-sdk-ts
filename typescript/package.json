@@ -1,7 +1,7 @@
 {
   "name": "starpoint",
   "author": "pointable <package-maintainers@pointable.ai>",
-  "version": "0.3.14",
+  "version": "0.4.0",
   "description": "TypeScript SDK for starpoint.ai",
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
