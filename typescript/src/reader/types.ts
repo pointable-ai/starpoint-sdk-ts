@@ -5,7 +5,7 @@ export interface QueryDocuments {
   query_embedding?: Option<number[]>;
   sql?: Option<string>;
   params?: Option<Array<string | number>>;
-  text_search_query?: Option<string>;
+  text_search_query?: Option<string[]>;
 }
 
 export type QueryRequest = ByWrapper<QueryDocuments>;
