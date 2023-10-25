@@ -32,7 +32,7 @@ export interface APIResult<T, U = ErrorResponse> {
 export type Option<T> = T | null | undefined;
 
 export interface Document {
-  embedding: number[];
+  embeddings: { values: number[]; dimensionality: number };
   metadata?: Option<Metadata>;
 }
 

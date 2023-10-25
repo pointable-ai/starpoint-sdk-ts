@@ -221,9 +221,11 @@ describe("updateDocuments", () => {
       body: undefined,
       bodyUsed: false,
     };
-    vi.mocked(ky.extend({
-      prefixUrl: WRITER_URL,
-    }).patch).mockResolvedValue(mockResponse);
+    vi.mocked(
+      ky.extend({
+        prefixUrl: WRITER_URL,
+      }).patch
+    ).mockResolvedValue(mockResponse);
     await dbClient.updateDocuments(mockRequest as any);
     expect(
       vi.mocked(
@@ -268,9 +270,11 @@ describe("updateDocuments", () => {
       body: undefined,
       bodyUsed: false,
     };
-    vi.mocked(ky.extend({
-      prefixUrl: WRITER_URL,
-    }).patch).mockResolvedValue(mockResponse);
+    vi.mocked(
+      ky.extend({
+        prefixUrl: WRITER_URL,
+      }).patch
+    ).mockResolvedValue(mockResponse);
     expect(
       vi.mocked(
         ky.extend({
@@ -401,11 +405,11 @@ describe("columnInsert", () => {
       collection_id: MOCK_COLLECTION_ID,
       documents: [
         {
-          embedding: [0.1, 0.2],
+          embeddings: [0.1, 0.2],
           metadata: { car: 1, horse: "neigh" },
         },
         {
-          embedding: [0.1, 0.4],
+          embeddings: [0.1, 0.4],
           metadata: { car: 2, horse: "bleh" },
         },
       ],
