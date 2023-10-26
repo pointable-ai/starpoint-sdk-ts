@@ -13,7 +13,7 @@ export interface InsertResponse {
 }
 
 export type TransposeAndInsertRequest = ByWrapper<{
-  embeddings: number[][];
+  embeddings: { values: number[]; dimensionality: number }[];
   document_metadata: Metadata[];
 }>;
 

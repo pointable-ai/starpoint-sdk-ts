@@ -1,4 +1,3 @@
-import axios, { AxiosInstance } from "axios";
 import ky from "ky-universal";
 import {
   sanitizeCollectionIdentifiersInRequest,
@@ -70,10 +69,10 @@ export const columnInsertFactory =
       const { embeddings, document_metadata, ...rest } = request;
       const columns = zip(embeddings, document_metadata);
       const documents: Document[] = columns.map((column) => {
-        const [embedding, metadata] = column;
+        const [embeddings, metadata] = column;
 
         return {
-          embedding,
+          embeddings,
           metadata,
         };
       });

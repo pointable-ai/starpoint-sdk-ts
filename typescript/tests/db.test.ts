@@ -111,7 +111,7 @@ describe("insertDocuments", () => {
       collection_id: COLLECTION_ID,
       documents: [
         {
-          embedding: [0.1, 0.2, 0.3],
+          embeddings: { values: [0.1, 0.2, 0.3], dimensionality: 3 },
           metadata: { car: "abe", apple: "john", inventory_count: 12 },
         },
       ],
@@ -351,7 +351,7 @@ describe("queryDocuments", () => {
     const dbClient = db.initialize(MOCK_API_KEY);
     const mockRequest = {
       collection_id: COLLECTION_ID,
-      query_embedding: [0.1, 0.2, 0.3],
+      query_embeddings: { values: [0.1, 0.2, 0.3], dimensionality: 3 },
     };
 
     await dbClient.query(mockRequest as any);
@@ -393,8 +393,8 @@ describe("columnInsert", () => {
     const mockRequest: TransposeAndInsertRequest = {
       collection_id: MOCK_COLLECTION_ID,
       embeddings: [
-        [0.1, 0.2],
-        [0.1, 0.4],
+        { values: [0.1, 0.2], dimensionality: 2 },
+        { values: [0.1, 0.4], dimensionality: 2 },
       ],
       document_metadata: [
         { car: 1, horse: "neigh" },
@@ -405,11 +405,11 @@ describe("columnInsert", () => {
       collection_id: MOCK_COLLECTION_ID,
       documents: [
         {
-          embeddings: [0.1, 0.2],
+          embeddings: { values: [0.1, 0.2], dimensionality: 2 },
           metadata: { car: 1, horse: "neigh" },
         },
         {
-          embeddings: [0.1, 0.4],
+          embeddings: { values: [0.1, 0.4], dimensionality: 2 },
           metadata: { car: 2, horse: "bleh" },
         },
       ],
@@ -430,7 +430,7 @@ describe("columnInsert", () => {
     const dbClient = db.initialize(MOCK_API_KEY);
     const mockRequest = {
       collection_id: MOCK_COLLECTION_ID,
-      embeddings: [[0.1, 0.2]],
+      embeddings: [{ values: [0.1, 0.4], dimensionality: 2 }],
       document_metadata: [
         { car: 1, horse: "neigh" },
         { car: 2, horse: "bleh" },
@@ -440,7 +440,7 @@ describe("columnInsert", () => {
       collection_id: MOCK_COLLECTION_ID,
       documents: [
         {
-          embedding: [0.1, 0.2],
+          embeddings: { values: [0.1, 0.4], dimensionality: 2 },
           metadata: { car: 1, horse: "neigh" },
         },
       ],
@@ -462,8 +462,10 @@ describe("columnInsert", () => {
     const mockRequest = {
       collection_id: MOCK_COLLECTION_ID,
       embeddings: [
-        [0.1, 0.2],
-        [0.4, 0.3],
+        { values: [0.1, 0.2], dimensionality: 2 },
+        ,
+        { values: [0.4, 0.3], dimensionality: 2 },
+        ,
       ],
       document_metadata: [{ car: 1, horse: "neigh" }, ,],
     };
@@ -471,11 +473,11 @@ describe("columnInsert", () => {
       collection_id: MOCK_COLLECTION_ID,
       documents: [
         {
-          embedding: [0.1, 0.2],
+          embeddings: [0.1, 0.2],
           metadata: { car: 1, horse: "neigh" },
         },
         {
-          embedding: [0.4, 0.3],
+          embeddings: [0.4, 0.3],
         },
       ],
     };
