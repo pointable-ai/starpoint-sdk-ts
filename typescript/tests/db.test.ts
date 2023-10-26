@@ -463,21 +463,19 @@ describe("columnInsert", () => {
       collection_id: MOCK_COLLECTION_ID,
       embeddings: [
         { values: [0.1, 0.2], dimensionality: 2 },
-        ,
         { values: [0.4, 0.3], dimensionality: 2 },
-        ,
       ],
-      document_metadata: [{ car: 1, horse: "neigh" }, ,],
+      document_metadata: [{ car: 1, horse: "neigh" }, undefined],
     };
     const mockInsertRequest = {
       collection_id: MOCK_COLLECTION_ID,
       documents: [
         {
-          embeddings: [0.1, 0.2],
+          embeddings: { values: [0.1, 0.2], dimensionality: 2 },
           metadata: { car: 1, horse: "neigh" },
         },
         {
-          embeddings: [0.4, 0.3],
+          embeddings: { values: [0.4, 0.3], dimensionality: 2 },
         },
       ],
     };

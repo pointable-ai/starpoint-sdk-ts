@@ -68,8 +68,9 @@ export const columnInsertFactory =
       // transpose metadata and embeddings
       const { embeddings, document_metadata, ...rest } = request;
       const columns = zip(embeddings, document_metadata);
-      const documents: Document[] = columns.map((column) => {
-        const [embeddings, metadata] = column;
+
+      const documents: Document[] = columns.map((row) => {
+        const [embeddings, metadata] = row;
 
         return {
           embeddings,
