@@ -2,7 +2,7 @@ import { ByWrapper, Option } from "../common-types";
 
 // QUERY
 export interface QueryDocuments {
-  query_embeddings?: Option<{ values: number[]; dimensionality }>;
+  query_embedding?: Option<{ values: number[]; dimensionality }>;
   sql?: Option<string>;
   params?: Option<Array<string | number>>;
   text_search_query?: Option<string[]>;
