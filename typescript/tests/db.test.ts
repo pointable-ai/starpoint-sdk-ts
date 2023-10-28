@@ -293,7 +293,7 @@ describe("deleteDocuments", () => {
     const dbClient = db.initialize(MOCK_API_KEY);
     const mockRequest: DeleteRequest = {
       collection_id: MOCK_COLLECTION_ID,
-      ids: [DOCUMENT_ID],
+      documents: [DOCUMENT_ID],
     };
 
     await dbClient.deleteDocuments(mockRequest);
@@ -313,7 +313,7 @@ describe("deleteDocuments", () => {
     const dbClient = db.initialize(MOCK_API_KEY);
     const mockRequest: DeleteRequest = {
       collection_id: MOCK_COLLECTION_ID,
-      ids: [],
+      documents: [],
     };
 
     await dbClient.deleteDocuments(mockRequest);
@@ -351,7 +351,7 @@ describe("queryDocuments", () => {
     const dbClient = db.initialize(MOCK_API_KEY);
     const mockRequest = {
       collection_id: COLLECTION_ID,
-      query_embeddings: { values: [0.1, 0.2, 0.3], dimensionality: 3 },
+      query_embedding: { values: [0.1, 0.2, 0.3], dimensionality: 3 },
     };
 
     await dbClient.query(mockRequest as any);

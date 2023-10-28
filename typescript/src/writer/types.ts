@@ -36,7 +36,7 @@ export interface UpdateResponse {
 }
 
 // DELETE
-export type DeleteRequest = ByWrapper<{ ids: string[] }>;
+export type DeleteRequest = ByWrapper<{ documents: string[] }>;
 
 export interface DeleteResponse {
   collection_id: string;
