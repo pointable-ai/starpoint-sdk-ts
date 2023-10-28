@@ -26,6 +26,7 @@ export interface TransposeAndInsertResponse {
 interface UpdateDocument {
   id: string;
   metadata: Metadata;
+  embeddings: { values: number[]; dimensionality: number };
 }
 
 export type UpdateRequest = ByWrapper<{ documents: UpdateDocument[] }>;
