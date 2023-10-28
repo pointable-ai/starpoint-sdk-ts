@@ -293,7 +293,7 @@ describe("deleteDocuments", () => {
     const dbClient = db.initialize(MOCK_API_KEY);
     const mockRequest: DeleteRequest = {
       collection_id: MOCK_COLLECTION_ID,
-      ids: [DOCUMENT_ID],
+      documents: [DOCUMENT_ID],
     };
 
     await dbClient.deleteDocuments(mockRequest);
@@ -313,7 +313,7 @@ describe("deleteDocuments", () => {
     const dbClient = db.initialize(MOCK_API_KEY);
     const mockRequest: DeleteRequest = {
       collection_id: MOCK_COLLECTION_ID,
-      ids: [],
+      documents: [],
     };
 
     await dbClient.deleteDocuments(mockRequest);

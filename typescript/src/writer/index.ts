@@ -117,7 +117,7 @@ export const deleteDocumentsFactory =
     try {
       // sanitize request
       sanitizeCollectionIdentifiersInRequest(request);
-      if (!request.ids || (request.ids && request.ids.length === 0)) {
+      if (!request.documents || (request.documents && request.documents.length === 0)) {
         throw new Error(MISSING_DOCUMENT_IDS_IN_DELETE_REQUEST_ERROR);
       }
       // make api call
